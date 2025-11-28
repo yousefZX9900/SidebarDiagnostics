@@ -1,0 +1,269 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Windows;
+using System.Windows.Markup;
+using Microsoft.Win32.TaskScheduler;
+using SidebarDiagnostics.Framework;
+using System.Diagnostics;
+
+namespace SidebarDiagnostics.Utilities
+{
+    public static class Paths
+    {
+        private const string SETTINGS = "settings.json";
+        private const string CHANGELOG = "ChangeLog.json";
+
+        public static string Install(Version version)
+        {
+            return Path.Combine(LocalApp, string.Format("app-{0}", version.ToString(3)));
+        }
+
+        public static string Exe(Version version)
+        {
+            return Path.Combine(Install(version), ExeName);
+        }
+
+        public static string ChangeLog
+        {
+            get
+            {
+                return Path.Combine(CurrentDirectory, CHANGELOG);
+            }
+        }
+
+        public static string CurrentDirectory
+        {
+            get
+            {
+                return Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+            }
+        }
+
+        public static string TaskBar
+        {
+            get
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
+            }
+        }
+
+        private static string _assemblyName { get; set; } = null;
+
+        public static string AssemblyName
+        {
+            get
+            {
+                if (_assemblyName == null)
+                {
+                    _assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+                }
+
+                return _assemblyName;
+            }
+        }
+
+        private static string _exeName { get; set; } = null;
+
+        public static string ExeName
+        {
+            get
+            {
+                if (_exeName == null)
+                {
+                    _exeName = string.Format("{0}.exe", AssemblyName);
+                }
+
+                return _exeName;
+            }
+        }
+
+        private static string _settingsFile { get; set; } = null;
+
+        public static string SettingsFile
+        {
+            get
+            {
+                if (_settingsFile == null)
+                {
+                    _settingsFile = Path.Combine(LocalApp, SETTINGS);
+                }
+
+                return _settingsFile;
+            }
+        }
+
+        private static string _localApp { get; set; } = null;
+
+        public static string LocalApp
+        {
+            get
+            {
+                if (_localApp == null)
+                {
+                    _localApp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AssemblyName);
+                }
+
+                return _localApp;
+            }
+        }
+    }
+
+    public static class Startup
+    {        
+        public static bool StartupTaskExists()
+        {
+            using (TaskService _taskService = new TaskService())
+            {
+                Task _task = _taskService.FindTask(Constants.Generic.TASKNAME);
+
+                if (_task == null)
+                {
+                    return false;
+                }
+
+                ExecAction _action = _task.Definition.Actions.OfType<ExecAction>().FirstOrDefault();
+
+                if (_action == null || _action.Path != Assembly.GetExecutingAssembly().Location)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public static void EnableStartupTask(string exePath = null)
+        {
+            try
+            {
+                using (TaskService _taskService = new TaskService())
+                {
+                    TaskDefinition _def = _taskService.NewTask();
+                    _def.Triggers.Add(new LogonTrigger() { Enabled = true });
+                    _def.Actions.Add(new ExecAction(exePath ?? Assembly.GetExecutingAssembly().Location));
+                    _def.Principal.RunLevel = TaskRunLevel.Highest;
+
+                    _def.Settings.DisallowStartIfOnBatteries = false;
+                    _def.Settings.StopIfGoingOnBatteries = false;
+                    _def.Settings.ExecutionTimeLimit = TimeSpan.Zero;
+
+                    _taskService.RootFolder.RegisterTaskDefinition(Constants.Generic.TASKNAME, _def);
+                }
+            }
+            catch (Exception e)
+            {
+                using (EventLog _log = new EventLog("Application"))
+                {
+                    _log.Source = Resources.AppName;
+                    _log.WriteEntry(e.ToString(), EventLogEntryType.Error, 100, 1);
+                }
+            }
+        }
+
+        public static void DisableStartupTask()
+        {
+            using (TaskService _taskService = new TaskService())
+            {
+                _taskService.RootFolder.DeleteTask(Constants.Generic.TASKNAME, false);
+            }
+        }
+    }
+
+    public static class Culture
+    {
+        public const string DEFAULT = "Default";
+
+        public static void SetDefault()
+        {
+            Default = Thread.CurrentThread.CurrentUICulture;
+        }
+
+        public static void SetCurrent(bool init)
+        {
+            Resources.Culture = CultureInfo;
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo;
+
+            if (init)
+            {
+                FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.Name)));
+            }
+        }
+
+        public static CultureItem[] GetAll()
+        {
+            // Get only one culture per language (the preferred/main variant)
+            var result = new List<CultureItem>();
+            result.Add(new CultureItem() { Value = DEFAULT, Text = Resources.SettingsLanguageDefault });
+            
+            foreach (var lang in PreferredCultures)
+            {
+                try
+                {
+                    var culture = new CultureInfo(lang.Value);
+                    result.Add(new CultureItem() { Value = lang.Value, Text = lang.Key });
+                }
+                catch { }
+            }
+            
+            return result.ToArray();
+        }
+
+        // Main/preferred culture for each language
+        private static Dictionary<string, string> PreferredCultures
+        {
+            get
+            {
+                return new Dictionary<string, string>
+                {
+                    { "العربية", "ar" },
+                    { "Dansk", "da" },
+                    { "Deutsch", "de" },
+                    { "English", "en" },
+                    { "Español", "es" },
+                    { "Suomi", "fi" },
+                    { "Français", "fr" },
+                    { "Italiano", "it" },
+                    { "日本語", "ja" },
+                    { "Nederlands", "nl" },
+                    { "Русский", "ru" },
+                    { "中文", "zh" }
+                };
+            }
+        }
+
+        public static string[] Languages
+        {
+            get
+            {
+                return new string[12] { "ar", "en", "da", "de", "fr", "ja", "nl", "zh", "it", "ru", "fi", "es" };
+            }
+        }
+
+        public static CultureInfo Default { get; private set; }
+
+        public static CultureInfo CultureInfo
+        {
+            get
+            {
+                string culture = Framework.Settings.Instance.Culture;
+                return string.Equals(culture, DEFAULT, StringComparison.Ordinal)
+                    ? Default
+                    : new CultureInfo(culture);
+            }
+        }
+    }
+
+    public class CultureItem
+    {
+        public string Value { get; set; }
+
+        public string Text { get; set; }
+    }
+}
