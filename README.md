@@ -1,108 +1,139 @@
-<h1><img src="sidebar.ico" width="64" height="64" /> Sidebar Diagnostics</h1>
+# Sidebar Diagnostics
 
-A modern and elegant sidebar for Windows desktop that displays real-time hardware diagnostic information.
+A modern and elegant hardware monitoring sidebar for Windows desktop that displays real-time system diagnostic information.
 
 ## Version 4.0.0
 
-This is an updated and enhanced fork with full Windows 11 support and new features.
+### System Requirements
 
-### Download
+| Operating System | Status |
+|------------------|--------|
+| Windows 11 | Fully Supported |
+| Windows 10 | Fully Supported |
 
-Go to the <a href="https://github.com/yousefZX9900/SidebarDiagnostics/releases">releases tab</a>.
+**Runtime Requirements:**
+- .NET Framework 4.7.2 or later
+- Administrator privileges (required for hardware monitoring)
 
 ---
 
-## What's New in v4.0.0
+## Download
 
-### Floating Bar Mode
-A compact, draggable floating bar that displays key metrics anywhere on your screen:
+Visit the [Releases](https://github.com/yousefZX9900/SidebarDiagnostics/releases) page to download the latest version.
+
+**Available Downloads:**
+- `SidebarDiagnostics-Setup-4.0.0.exe` - Installer (Recommended)
+- `SidebarDiagnostics-v4.0.0.zip` - Portable Version
+
+---
+
+## What's New in Version 4.0.0
+
+### New Features
+
+**Floating Bar Mode**
+- Compact, draggable floating bar displaying key system metrics
 - Semi-transparent modern design with gradient styling
-- Hover to reveal additional controls (Pin, Settings, Close)
-- Pin/Unpin functionality to lock position
+- Hover-to-reveal controls: Pin, Settings, Close
+- Pin/Unpin functionality to lock position on screen
 - Expandable details panel with navigation tabs for CPU, RAM, GPU, Network, and Drives
 - Real-time temperature readings for CPU and GPU
 - Smooth animations and visual effects
 
-### Windows 11 Full Support
-- Fully compatible with Windows 11 taskbar and snap layouts
-- Optimized for the latest Windows 11 design language
-- Works seamlessly with virtual desktops
+**Windows 11 Full Support**
+- Complete compatibility with Windows 11 taskbar and snap layouts
+- Optimized for Windows 11 design language
+- Seamless integration with virtual desktops
 
-### Arabic Language Support
-- Full RTL (Right-to-Left) support for Arabic speakers
+**Arabic Language Support**
+- Full RTL (Right-to-Left) interface support
 - Complete Arabic localization
 
-### Updated Hardware Monitoring
-- Latest Libre Hardware Monitor library (v0.9.4)
-- Better compatibility with newer hardware
+**Updated Hardware Monitoring**
+- Upgraded to Libre Hardware Monitor library v0.9.4
+- Enhanced compatibility with newer hardware
 - Improved GPU metrics accuracy
+
+### Improvements
+- Enhanced UI with gradient styling and animations
+- Better performance and resource management
+- Fixed version display issue
+- Various bug fixes and stability improvements
 
 ---
 
 ## Core Features
 
-* Monitors CPU, RAM, GPU, network, and logical drives
-* Create graphs for all metrics
-* Extensive customization options
-* Configurable alerts for various values
-* Custom hotkey bindings
-* Supports monitors of all DPI types including high-DPI displays
-* Clock display at the top
-* Multi-language support (English, Arabic, French, German, Japanese, Russian, Italian, Chinese, and more)
+- Real-time monitoring of CPU, RAM, GPU, Network, and Logical Drives
+- Customizable graphs for all metrics
+- Extensive customization options for appearance and behavior
+- Configurable alerts with threshold notifications
+- Custom hotkey bindings for quick access
+- High-DPI display support
+- Clock display option
+- Multi-language support
 
-## Important
+### Supported Languages
+English, Arabic, French, German, Japanese, Russian, Italian, Chinese, Spanish, Dutch, Danish, Finnish, Turkish
 
-If you are changing your screen's DPI settings, <a href="https://github.com/ArcadeRenegade/SidebarDiagnostics/wiki/DPI-Settings">view this page</a>.
-
-## Supported Operating Systems
-
-| OS | Status |
-|---|---|
-| Windows 11 | Fully Supported |
-| Windows 10 | Supported |
-| Windows 8.1 | Supported |
-| Windows 8 | Supported |
-| Windows 7 | Supported |
+---
 
 ## Screenshots
 
 ### Classic Sidebar Mode
-<img src="http://i.imgur.com/70LkdwO.png" />
+The traditional sidebar view provides comprehensive system information in a vertical layout.
 
 ### Floating Bar Mode
-The floating bar provides a compact, always-visible overview of your system performance with modern styling and smooth animations.
+A compact, always-visible overview of system performance with modern styling.
 
-<img src="http://i.imgur.com/mkrO6W6.png" />
+---
+
+## Installation
+
+### Using the Installer (Recommended)
+1. Download `SidebarDiagnostics-Setup-4.0.0.exe` from the Releases page
+2. Run the installer as Administrator
+3. Follow the installation wizard
+4. Launch Sidebar Diagnostics from the Start Menu
+
+### Portable Installation
+1. Download `SidebarDiagnostics-v4.0.0.zip` from the Releases page
+2. Extract to your preferred location
+3. Run `SidebarDiagnostics.exe` as Administrator
+
+---
+
+## Building from Source
+
+### Prerequisites
+- Visual Studio 2019 or later
+- .NET Framework 4.7.2 SDK
+- NuGet Package Manager
+
+### Build Steps
+1. Clone the repository
+2. Open `SidebarDiagnostics.sln` in Visual Studio
+3. Restore NuGet packages
+4. Build the solution in Release configuration
 
 ---
 
 ## Technical Information
 
-- Written in C# .NET WPF
-- Compiled with <a href="https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net472-web-installer">.NET Framework 4.7.2</a>
-- Requires administrator privileges for hardware monitoring access
-- Hardware data provided by <a href="https://github.com/LibreHardwareMonitor/LibreHardwareMonitor">Libre Hardware Monitor</a>
-
-## License
-
-GNU GENERAL PUBLIC LICENSE v3.0
-
-Please provide a link to this GitHub repository if reuploading. Thank you.
-
-## Credits
-
-- Original project by <a href="https://github.com/ArcadeRenegade/SidebarDiagnostics">ArcadeRenegade</a>
-- Hardware monitoring by <a href="https://github.com/LibreHardwareMonitor/LibreHardwareMonitor">Libre Hardware Monitor</a>
+- Written in C# using WPF (Windows Presentation Foundation)
+- Target Framework: .NET Framework 4.7.2
+- Hardware monitoring powered by [Libre Hardware Monitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)
 
 ---
 
-## Changelog
+## Version History
 
-### v4.0.0 (Latest)
+### v4.0.0 (Current Release)
 - New Floating Bar Mode with modern UI
 - Full Windows 11 support
-- Arabic language support (RTL)
+- Arabic language support with RTL
 - Updated Libre Hardware Monitor to v0.9.4
+- Fixed version display issue
 - Enhanced UI with gradient styling and animations
 - Various bug fixes and improvements
 
@@ -111,22 +142,33 @@ Please provide a link to this GitHub repository if reuploading. Thank you.
 - Arabic language support
 
 ### v3.6.2
-- Fix GPU fan metric bug
-- Fix GPU VRAM load metric bug
-
-<details>
-<summary>View older versions</summary>
+- Fixed GPU fan metric bug
+- Fixed GPU VRAM load metric bug
 
 ### v3.6.1
 - Updated Libre Hardware Monitor
-- Fix GPU fan metric bug
+- Fixed GPU fan metric bug
 
 ### v3.6.0
 - Updated Libre Hardware Monitor
 
-### v3.5.x
-- Various Libre Hardware Monitor updates
-- Russian and Italian language support
-- Bug fixes for Ryzen CPUs
+---
 
-</details>
+## License
+
+GNU General Public License v3.0
+
+See [LICENSE.md](LICENSE.md) for details.
+
+---
+
+## Credits
+
+- Original project by [ArcadeRenegade](https://github.com/ArcadeRenegade/SidebarDiagnostics)
+- Hardware monitoring by [Libre Hardware Monitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)
+
+---
+
+## Support
+
+For bug reports and feature requests, please use the [Issues](https://github.com/yousefZX9900/SidebarDiagnostics/issues) page.
