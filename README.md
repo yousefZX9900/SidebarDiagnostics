@@ -164,6 +164,7 @@ See [LICENSE.md](LICENSE.md) for details.
 ## Credits
 
 - Original project by [ArcadeRenegade](https://github.com/ArcadeRenegade/SidebarDiagnostics)
+- Second developer by [Yousef](https://x.com/yousef_dev921?s=21) "Developed with the assistance of AI tools"
 - Hardware monitoring by [Libre Hardware Monitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)
 
 ---
