@@ -46,7 +46,6 @@ Visit the [Releases](https://github.com/yousefZX9900/SidebarDiagnostics/releases
 - Seamless integration with virtual desktops
 
 **Arabic Language Support**
-- Full RTL (Right-to-Left) interface support
 - Complete Arabic localization
 
 **Updated Hardware Monitoring**
@@ -131,7 +130,7 @@ A compact, always-visible overview of system performance with modern styling.
 ### v4.0.0 (Current Release)
 - New Floating Bar Mode with modern UI
 - Full Windows 11 support
-- Arabic language support with RTL
+- Arabic language support
 - Updated Libre Hardware Monitor to v0.9.4
 - Fixed version display issue
 - Enhanced UI with gradient styling and animations
