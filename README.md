@@ -8,8 +8,8 @@ A modern and elegant hardware monitoring sidebar for Windows desktop that displa
 
 | Operating System | Status |
 |------------------|--------|
-| Windows 11 | Fully Supported |
-| Windows 10 | Fully Supported |
+| Windows 11 |  Supported |
+| Windows 10 |  Supported |
 
 **Runtime Requirements:**
 - .NET Framework 4.7.2 or later
@@ -172,3 +172,13 @@ See [LICENSE.md](LICENSE.md) for details.
 ## Support
 
 For bug reports and feature requests, please use the [Issues](https://github.com/yousefZX9900/SidebarDiagnostics/issues) page.
+
+## SECURITY WARNING — v4.0.0
+
+Windows Defender may display a Severe alert for this tool because one of its current hardware-monitoring dependencies uses a known vulnerable kernel driver: WinRing0.sys (often detected as VulnerableDriver:WinNT/Winring0).
+
+This warning relates to the third-party driver/library used to read low-level hardware sensors, not to any intentionally malicious behavior in this tool. However, due to the known vulnerability, using this driver may increase security risk in certain scenarios.
+
+This issue affects version 4.0.0. A fix is in progress and will be released soon to remove/replace the vulnerable dependency.
+
+Use v4.0.0 at your own risk.
